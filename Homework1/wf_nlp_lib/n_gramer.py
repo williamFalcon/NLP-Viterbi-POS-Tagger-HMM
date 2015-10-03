@@ -10,9 +10,9 @@ def make_ngrams_for_corpus(corpus, n, start_token, end_token):
     :param n:
     :return:
     """
-
     # Init a dictionary for the ith ngram requested
     grams = [{} for i in range(n)]
+    corpus_size = 0
 
     # Generate ith gram for each sentence given
     for i_gram_count in range(n):
@@ -27,8 +27,11 @@ def make_ngrams_for_corpus(corpus, n, start_token, end_token):
             if len(tokens) > 0:
                 insert_start_end_tokens(tokens, start_token, end_token)
                 zip_word_frequency_with_dict(tokens, ith_dict, ith_gram)
+                corpus_size += len(tokens) + 2
 
-    return grams
+    # We counted corpus_size by a factor of n. Remove the factor for true count
+    corpus_size /= n
+    return grams, corpus_size
 
 
 def probabilitize_n_grams(n_grams_array):
@@ -39,6 +42,7 @@ def internal_probabilitize(dict_array, current_dict_index):
 
     # Base case. We're at the unigram
     if current_dict_index == 0:
+        # TODO: Normalize base by size of corpus
         return
 
     # Use the previous ngram as the numerator
