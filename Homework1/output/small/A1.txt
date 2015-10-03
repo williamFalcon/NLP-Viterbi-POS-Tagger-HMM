@@ -1,0 +1,252 @@
+UNIGRAM * -3.96962635096
+UNIGRAM , -5.55458885168
+UNIGRAM . -3.96962635096
+UNIGRAM 1 -6.55458885168
+UNIGRAM And -6.55458885168
+UNIGRAM At -6.55458885168
+UNIGRAM Once -6.55458885168
+UNIGRAM STOP -3.96962635096
+UNIGRAM Table -6.55458885168
+UNIGRAM This -6.55458885168
+UNIGRAM Using -6.55458885168
+UNIGRAM a -6.55458885168
+UNIGRAM accomplish -6.55458885168
+UNIGRAM and -4.96962635096
+UNIGRAM anything -6.55458885168
+UNIGRAM below -6.55458885168
+UNIGRAM came -6.55458885168
+UNIGRAM contributed -6.55458885168
+UNIGRAM dirty -6.55458885168
+UNIGRAM does -6.55458885168
+UNIGRAM duties -6.55458885168
+UNIGRAM employee -6.55458885168
+UNIGRAM employees -5.55458885168
+UNIGRAM engineers -6.55458885168
+UNIGRAM established -6.55458885168
+UNIGRAM felt -6.55458885168
+UNIGRAM for -6.55458885168
+UNIGRAM growth -5.55458885168
+UNIGRAM hardship -6.55458885168
+UNIGRAM highway -6.55458885168
+UNIGRAM immediately -6.55458885168
+UNIGRAM in -5.55458885168
+UNIGRAM increase -5.55458885168
+UNIGRAM itself -6.55458885168
+UNIGRAM justifiable -6.55458885168
+UNIGRAM matter -6.55458885168
+UNIGRAM need -6.55458885168
+UNIGRAM not -6.55458885168
+UNIGRAM of -4.55458885168
+UNIGRAM other -6.55458885168
+UNIGRAM perfectly -6.55458885168
+UNIGRAM personal -6.55458885168
+UNIGRAM principle -6.55458885168
+UNIGRAM privately-owned -6.55458885168
+UNIGRAM providing -6.55458885168
+UNIGRAM rapidly -6.55458885168
+UNIGRAM rate -5.55458885168
+UNIGRAM reasons -6.55458885168
+UNIGRAM roads -6.55458885168
+UNIGRAM rough -6.55458885168
+UNIGRAM shows -6.55458885168
+UNIGRAM signify -6.55458885168
+UNIGRAM state -6.55458885168
+UNIGRAM state-owned -6.55458885168
+UNIGRAM such -6.55458885168
+UNIGRAM than -6.55458885168
+UNIGRAM that -6.55458885168
+UNIGRAM the -4.23266075679
+UNIGRAM their -6.55458885168
+UNIGRAM time -6.55458885168
+UNIGRAM to -5.55458885168
+UNIGRAM transportation -6.55458885168
+UNIGRAM traveled -6.55458885168
+UNIGRAM vehicles -4.96962635096
+UNIGRAM was -4.96962635096
+BIGRAM * * 0.0
+BIGRAM * And -2.58496250072
+BIGRAM * At -2.58496250072
+BIGRAM * Once -2.58496250072
+BIGRAM * Table -2.58496250072
+BIGRAM * This -2.58496250072
+BIGRAM * Using -2.58496250072
+BIGRAM , and -1.0
+BIGRAM , the -1.0
+BIGRAM . STOP 0.0
+BIGRAM 1 immediately 0.0
+BIGRAM And reasons 0.0
+BIGRAM At that 0.0
+BIGRAM Once the 0.0
+BIGRAM STOP STOP 0.0
+BIGRAM Table 1 0.0
+BIGRAM This rate 0.0
+BIGRAM Using privately-owned 0.0
+BIGRAM a personal 0.0
+BIGRAM accomplish their 0.0
+BIGRAM and dirty -1.58496250072
+BIGRAM and employees -1.58496250072
+BIGRAM and the -1.58496250072
+BIGRAM anything in 0.0
+BIGRAM below shows 0.0
+BIGRAM came rapidly 0.0
+BIGRAM contributed to 0.0
+BIGRAM dirty roads 0.0
+BIGRAM does not 0.0
+BIGRAM duties . 0.0
+BIGRAM employee need 0.0
+BIGRAM employees , -1.0
+BIGRAM employees . -1.0
+BIGRAM engineers traveled 0.0
+BIGRAM established , 0.0
+BIGRAM felt perfectly 0.0
+BIGRAM for such 0.0
+BIGRAM growth . -1.0
+BIGRAM growth of -1.0
+BIGRAM hardship for 0.0
+BIGRAM highway engineers 0.0
+BIGRAM immediately below 0.0
+BIGRAM in itself -1.0
+BIGRAM in state-owned -1.0
+BIGRAM increase does -1.0
+BIGRAM increase in -1.0
+BIGRAM itself . 0.0
+BIGRAM justifiable . 0.0
+BIGRAM matter of 0.0
+BIGRAM need contributed 0.0
+BIGRAM not signify 0.0
+BIGRAM of growth -2.0
+BIGRAM of increase -2.0
+BIGRAM of providing -2.0
+BIGRAM of vehicles -2.0
+BIGRAM other than 0.0
+BIGRAM perfectly justifiable 0.0
+BIGRAM personal hardship 0.0
+BIGRAM principle was 0.0
+BIGRAM privately-owned vehicles 0.0
+BIGRAM providing state 0.0
+BIGRAM rapidly . 0.0
+BIGRAM rate of 0.0
+BIGRAM reasons other 0.0
+BIGRAM roads to 0.0
+BIGRAM rough and 0.0
+BIGRAM shows the 0.0
+BIGRAM signify anything 0.0
+BIGRAM state transportation 0.0
+BIGRAM state-owned vehicles 0.0
+BIGRAM such employees 0.0
+BIGRAM than employee 0.0
+BIGRAM that time 0.0
+BIGRAM the growth -2.32192809489
+BIGRAM the increase -2.32192809489
+BIGRAM the matter -2.32192809489
+BIGRAM the principle -2.32192809489
+BIGRAM the rate -2.32192809489
+BIGRAM their duties 0.0
+BIGRAM time highway 0.0
+BIGRAM to accomplish -1.0
+BIGRAM to the -1.0
+BIGRAM transportation was 0.0
+BIGRAM traveled rough 0.0
+BIGRAM vehicles and -1.58496250072
+BIGRAM vehicles came -1.58496250072
+BIGRAM vehicles was -1.58496250072
+BIGRAM was a -1.58496250072
+BIGRAM was established -1.58496250072
+BIGRAM was felt -1.58496250072
+TRIGRAM * * * 0.0
+TRIGRAM * * And -2.58496250072
+TRIGRAM * * At -2.58496250072
+TRIGRAM * * Once -2.58496250072
+TRIGRAM * * Table -2.58496250072
+TRIGRAM * * This -2.58496250072
+TRIGRAM * * Using -2.58496250072
+TRIGRAM * And reasons 0.0
+TRIGRAM * At that 0.0
+TRIGRAM * Once the 0.0
+TRIGRAM * Table 1 0.0
+TRIGRAM * This rate 0.0
+TRIGRAM * Using privately-owned 0.0
+TRIGRAM , and the 0.0
+TRIGRAM , the increase 0.0
+TRIGRAM . STOP STOP 0.0
+TRIGRAM 1 immediately below 0.0
+TRIGRAM And reasons other 0.0
+TRIGRAM At that time 0.0
+TRIGRAM Once the principle 0.0
+TRIGRAM STOP STOP STOP 0.0
+TRIGRAM Table 1 immediately 0.0
+TRIGRAM This rate of 0.0
+TRIGRAM Using privately-owned vehicles 0.0
+TRIGRAM a personal hardship 0.0
+TRIGRAM accomplish their duties 0.0
+TRIGRAM and dirty roads 0.0
+TRIGRAM and employees . 0.0
+TRIGRAM and the matter 0.0
+TRIGRAM anything in itself 0.0
+TRIGRAM below shows the 0.0
+TRIGRAM came rapidly . 0.0
+TRIGRAM contributed to the 0.0
+TRIGRAM dirty roads to 0.0
+TRIGRAM does not signify 0.0
+TRIGRAM duties . STOP 0.0
+TRIGRAM employee need contributed 0.0
+TRIGRAM employees , and 0.0
+TRIGRAM employees . STOP 0.0
+TRIGRAM engineers traveled rough 0.0
+TRIGRAM established , the 0.0
+TRIGRAM felt perfectly justifiable 0.0
+TRIGRAM for such employees 0.0
+TRIGRAM growth . STOP 0.0
+TRIGRAM growth of vehicles 0.0
+TRIGRAM hardship for such 0.0
+TRIGRAM highway engineers traveled 0.0
+TRIGRAM immediately below shows 0.0
+TRIGRAM in itself . 0.0
+TRIGRAM in state-owned vehicles 0.0
+TRIGRAM increase does not 0.0
+TRIGRAM increase in state-owned 0.0
+TRIGRAM itself . STOP 0.0
+TRIGRAM justifiable . STOP 0.0
+TRIGRAM matter of providing 0.0
+TRIGRAM need contributed to 0.0
+TRIGRAM not signify anything 0.0
+TRIGRAM of growth of 0.0
+TRIGRAM of increase does 0.0
+TRIGRAM of providing state 0.0
+TRIGRAM of vehicles and 0.0
+TRIGRAM other than employee 0.0
+TRIGRAM perfectly justifiable . 0.0
+TRIGRAM personal hardship for 0.0
+TRIGRAM principle was established 0.0
+TRIGRAM privately-owned vehicles was 0.0
+TRIGRAM providing state transportation 0.0
+TRIGRAM rapidly . STOP 0.0
+TRIGRAM rate of growth -1.0
+TRIGRAM rate of increase -1.0
+TRIGRAM reasons other than 0.0
+TRIGRAM roads to accomplish 0.0
+TRIGRAM rough and dirty 0.0
+TRIGRAM shows the rate 0.0
+TRIGRAM signify anything in 0.0
+TRIGRAM state transportation was 0.0
+TRIGRAM state-owned vehicles came 0.0
+TRIGRAM such employees , 0.0
+TRIGRAM than employee need 0.0
+TRIGRAM that time highway 0.0
+TRIGRAM the growth . 0.0
+TRIGRAM the increase in 0.0
+TRIGRAM the matter of 0.0
+TRIGRAM the principle was 0.0
+TRIGRAM the rate of 0.0
+TRIGRAM their duties . 0.0
+TRIGRAM time highway engineers 0.0
+TRIGRAM to accomplish their 0.0
+TRIGRAM to the growth 0.0
+TRIGRAM transportation was felt 0.0
+TRIGRAM traveled rough and 0.0
+TRIGRAM vehicles and employees 0.0
+TRIGRAM vehicles came rapidly 0.0
+TRIGRAM vehicles was a 0.0
+TRIGRAM was a personal 0.0
+TRIGRAM was established , 0.0
+TRIGRAM was felt perfectly 0.0

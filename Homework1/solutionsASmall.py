@@ -1,7 +1,6 @@
-import math
-import nltk
 import time
 import wf_nlp_lib.n_gramer as ngramer
+import wf_nlp_lib.ngram_scorer as scorer
 import tests.part_a_tests as a_tests
 
 # Constants to be used by you when you fill the functions
@@ -9,11 +8,11 @@ START_SYMBOL = '*'
 STOP_SYMBOL = 'STOP'
 MINUS_INFINITY_SENTENCE_LOG_PROB = -1000
 
-# TODO: IMPLEMENT THIS FUNCTION
 # Calculates unigram, bigram, and trigram probabilities given a training corpus
 # training_corpus: is a list of the sentences. Each sentence is a string with tokens separated by spaces, ending in a newline character.
 # This function outputs three python dictionaries, where the keys are tuples expressing the ngram and the value is the log probability of that ngram
 def calc_probabilities(training_corpus):
+
     # Calculate the probabilies using our external module
     grams, corpus_size = ngramer.make_ngrams_for_corpus(training_corpus, 3, START_SYMBOL, STOP_SYMBOL)
     ngramer.calculate_ngram_probabilities(grams, corpus_size)
@@ -23,7 +22,8 @@ def calc_probabilities(training_corpus):
     bigram_p = grams[1]
     trigram_p = grams[2]
 
-    a_tests.test_grams(unigram_p, bigram_p, trigram_p)
+    # TODO: Comment out when submit
+    #a_tests.test_grams(unigram_p, bigram_p, trigram_p)
 
     return unigram_p, bigram_p, trigram_p
 
@@ -58,7 +58,7 @@ def q1_output(unigrams, bigrams, trigrams, filename):
 # corpus: list of sentences to score. Each sentence is a string with tokens separated by spaces, ending in a newline character.
 # This function must return a python list of scores, where the first element is the score of the first sentence, etc. 
 def score(ngram_p, n, corpus):
-    scores = []
+    scores = scorer.score(ngram_p, n, corpus, START_SYMBOL, STOP_SYMBOL)
     return scores
 
 # Outputs a score to a file
@@ -97,7 +97,6 @@ def main():
     # question 1 output
     q1_output(unigrams, bigrams, trigrams, OUTPUT_PATH + 'A1.txt')
 
-    '''
     # score sentences (question 2)
     uniscores = score(unigrams, 1, corpus)
     biscores = score(bigrams, 2, corpus)
@@ -108,6 +107,7 @@ def main():
     score_output(biscores, OUTPUT_PATH + 'A2.bi.txt')
     score_output(triscores, OUTPUT_PATH + 'A2.tri.txt')
 
+    '''
     # linear interpolation (question 3)
     linearscores = linearscore(unigrams, bigrams, trigrams, corpus)
 

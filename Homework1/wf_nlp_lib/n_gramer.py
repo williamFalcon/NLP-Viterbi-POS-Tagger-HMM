@@ -27,15 +27,21 @@ def make_ngrams_for_corpus(corpus, n, start_token, end_token):
 
         # Do frequency count
         for sentence in corpus:
-            tokens = sentence.strip().split(' ')
+            tokens = explode(sentence)
             if len(tokens) > 0:
-                corpus_size += len(tokens)+1 # Count the start token
-                __insert_start_end_tokens(tokens, start_token, end_token)
+                corpus_size += len(tokens)+1 # Count the end token only
+                insert_start_end_tokens(tokens, start_token, end_token, i_gram_count+1)
                 __zip_word_frequency_with_dict(tokens, ith_dict, ith_gram)
 
     # We counted corpus_size by a factor of n. Remove the factor for true count
+    # Remove the start tokens from the unigram
+    grams[0].pop(start_token, None)
     corpus_size /= n
     return grams, corpus_size
+
+
+def explode(sentence):
+    return sentence.strip().split(' ')
 
 
 def calculate_ngram_probabilities(n_grams_array, corpus_size):
@@ -85,9 +91,11 @@ def __log_probability_for_gram(gram, gram_dict, prior_gram_dict, log_base):
     return math.log(probability, log_base)
 
 
-def __insert_start_end_tokens(tokens, start_token, end_token):
-    tokens.insert(0, start_token)
-    tokens.append(end_token)
+def insert_start_end_tokens(tokens, start_token, end_token, n_gram_count):
+
+    for c in range(n_gram_count):
+        tokens.insert(0, start_token)
+        tokens.append(end_token)
 
 
 def __zip_word_frequency_with_dict(tokens, n_dict, n_count):
@@ -100,14 +108,14 @@ def __zip_word_frequency_with_dict(tokens, n_dict, n_count):
     """
 
     # make ngram
-    grammed = __ngram_from_word_list(tokens, n_count)
+    grammed = ngram_from_word_list(tokens, n_count)
 
     # freq count each ngram
     for gram in grammed:
         n_dict[gram] = n_dict[gram]+1 if gram in n_dict else 1
 
 
-def __ngram_from_word_list(word_list, n):
+def ngram_from_word_list(word_list, n):
     """
     Returns List of n-tuples from the given list
     :param word_list:
