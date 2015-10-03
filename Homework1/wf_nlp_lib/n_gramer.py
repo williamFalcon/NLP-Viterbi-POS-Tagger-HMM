@@ -8,6 +8,8 @@ def make_ngrams_for_corpus(corpus, n, start_token, end_token):
     Returns an array of n dictionaries with the frequencies of each ngram
     :param corpus:
     :param n:
+    :param start_token:
+    :param end_token:
     :return:
     """
     # Init a dictionary for the ith ngram requested
@@ -34,19 +36,22 @@ def make_ngrams_for_corpus(corpus, n, start_token, end_token):
     return grams, corpus_size
 
 
-def probabilitize_n_grams(n_grams_array):
-    internal_probabilitize(n_grams_array, len(n_grams_array)-1)
+def probabilitize_n_grams(n_grams_array, corpus_size):
+    internal_probabilitize(n_grams_array, len(n_grams_array)-1, corpus_size)
 
 
-def internal_probabilitize(dict_array, current_dict_index):
+def internal_probabilitize(dict_array, current_dict_index, corpus_size):
 
-    # Base case. We're at the unigram
+    # Current ngram dict
+    gram_dict = dict_array[current_dict_index]
+
+    # Base case. We're at the unigram. Normalize by vocab size
     if current_dict_index == 0:
-        # TODO: Normalize base by size of corpus
+        gram_dict.update((k, float(v) / corpus_size) for k, v in gram_dict.items())
         return
 
+    # Recursive operations
     # Use the previous ngram as the numerator
-    gram_dict = dict_array[current_dict_index]
     prior_gram_dict = dict_array[current_dict_index-1]
 
     # Calculate probability for each gram
@@ -54,7 +59,7 @@ def internal_probabilitize(dict_array, current_dict_index):
         gram_dict[gram] = log_probability_for_gram(gram,gram_dict, prior_gram_dict, 2)
 
     # Recurse
-    internal_probabilitize(dict_array, current_dict_index-1)
+    internal_probabilitize(dict_array, current_dict_index-1, corpus_size)
 
 
 def log_probability_for_gram(gram, gram_dict, prior_gram_dict, log_base):

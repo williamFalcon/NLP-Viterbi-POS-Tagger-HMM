@@ -13,11 +13,14 @@ MINUS_INFINITY_SENTENCE_LOG_PROB = -1000
 # training_corpus: is a list of the sentences. Each sentence is a string with tokens separated by spaces, ending in a newline character.
 # This function outputs three python dictionaries, where the keys are tuples expressing the ngram and the value is the log probability of that ngram
 def calc_probabilities(training_corpus):
+    # Calculate the probabilies using our external module
     grams, corpus_size = ngramer.make_ngrams_for_corpus(training_corpus, 3, START_SYMBOL, STOP_SYMBOL)
-    ngramer.probabilitize_n_grams(grams)
-    unigram_p = {}
-    bigram_p = {}
-    trigram_p = {}
+    ngramer.probabilitize_n_grams(grams, corpus_size)
+
+    # Transfer back to HW output needed
+    unigram_p = grams[0]
+    bigram_p = grams[1]
+    trigram_p = grams[2]
     return unigram_p, bigram_p, trigram_p
 
 # Prints the output for q1
