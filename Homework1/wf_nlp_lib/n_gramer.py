@@ -1,9 +1,10 @@
 __author__ = 'waf04'
 import nltk
 
-def calculate_ngram_probabilities_for_corpus(corpus, n):
+
+def make_ngrams_for_corpus(corpus, n, start_token, end_token):
     """
-    Returns an array of n dictionaries with the ngram probabilities for that ngram.
+    Returns an array of n dictionaries with the frequencies of each ngram
     :param corpus:
     :param n:
     :return:
@@ -21,26 +22,34 @@ def calculate_ngram_probabilities_for_corpus(corpus, n):
 
         # Do frequency count
         for sentence in corpus:
-            zip_word_frequency_with_dict(sentence, ith_dict, ith_gram)
+            tokens = nltk.word_tokenize(sentence)
+            if len(tokens) > 0:
+                insert_start_end_tokens(tokens, start_token, end_token)
+                zip_word_frequency_with_dict(sentence, ith_dict, ith_gram)
 
-    print('yo')
+    return grams
 
 
-def zip_word_frequency_with_dict(sentence, n_dict, n_count):
+def insert_start_end_tokens(tokens, start_token, end_token):
+    tokens.insert(0, start_token)
+    tokens.append(end_token)
+
+
+def zip_word_frequency_with_dict(tokens, n_dict, n_count):
     """
     Inserts the frequency counts into the given dictionary
-    :param sentence:
+    :param tokens:
     :param n_dict:
     :param n_count:
     :return:
     """
-    tokens = nltk.word_tokenize(sentence)
 
-    # make ngram if have proper length
-    if len(tokens) > 0:
-        grammed = ngram_from_word_list(tokens, n_count)
-        for gram in grammed:
-            n_dict[gram] = n_dict[gram]+1 if gram in n_dict else 0
+    # make ngram
+    grammed = ngram_from_word_list(tokens, n_count)
+
+    # freq count each ngram
+    for gram in grammed:
+        n_dict[gram] = n_dict[gram]+1 if gram in n_dict else 0
 
 
 def ngram_from_word_list(word_list, n):
