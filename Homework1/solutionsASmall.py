@@ -19,8 +19,15 @@ def calc_probabilities(training_corpus):
 
     # Transfer back to HW output needed
     unigram_p = grams[0]
+    # c = unigram_p['captain']
+    # assert (unigram_p['captain'] == -14.2809819899)
+
     bigram_p = grams[1]
+    # assert (bigram_p['religiously'] == -13.9316608989)
+
     trigram_p = grams[2]
+    # assert (trigram_p['and not by'] == -4.61470984412)
+
     return unigram_p, bigram_p, trigram_p
 
 # Prints the output for q1
@@ -74,8 +81,8 @@ def linearscore(unigrams, bigrams, trigrams, corpus):
     scores = []
     return scores
 
-DATA_PATH = 'data/small/'
-OUTPUT_PATH = 'output/small/'
+DATA_PATH = 'data/'
+OUTPUT_PATH = 'output/'
 
 # DO NOT MODIFY THE MAIN FUNCTION
 def main():
@@ -83,7 +90,7 @@ def main():
     time.clock()
 
     # get data
-    infile = open(DATA_PATH + 'Small_Brown_train.txt', 'r')
+    infile = open(DATA_PATH + 'Brown_train.txt', 'r')
     corpus = infile.readlines()
     infile.close()
 
