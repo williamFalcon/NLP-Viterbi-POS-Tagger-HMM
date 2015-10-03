@@ -14,6 +14,7 @@ MINUS_INFINITY_SENTENCE_LOG_PROB = -1000
 # This function outputs three python dictionaries, where the keys are tuples expressing the ngram and the value is the log probability of that ngram
 def calc_probabilities(training_corpus):
     grams = ngramer.make_ngrams_for_corpus(training_corpus, 3, START_SYMBOL, STOP_SYMBOL)
+    ngramer.probabilitize_n_grams(grams)
     unigram_p = {}
     bigram_p = {}
     trigram_p = {}

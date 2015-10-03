@@ -1,5 +1,6 @@
 __author__ = 'waf04'
 import nltk
+import math
 
 
 def make_ngrams_for_corpus(corpus, n, start_token, end_token):
@@ -25,9 +26,46 @@ def make_ngrams_for_corpus(corpus, n, start_token, end_token):
             tokens = nltk.word_tokenize(sentence)
             if len(tokens) > 0:
                 insert_start_end_tokens(tokens, start_token, end_token)
-                zip_word_frequency_with_dict(sentence, ith_dict, ith_gram)
+                zip_word_frequency_with_dict(tokens, ith_dict, ith_gram)
 
     return grams
+
+
+def probabilitize_n_grams(n_grams_array):
+    internal_probabilitize(n_grams_array, len(n_grams_array)-1)
+
+
+def internal_probabilitize(dict_array, current_dict_index):
+
+    # Base case. We're at the unigram
+    if current_dict_index == 0:
+        return
+
+    # Use the previous ngram as the numerator
+    gram_dict = dict_array[current_dict_index]
+    prior_gram_dict = dict_array[current_dict_index-1]
+
+    # Calculate probability for each gram
+    for gram in gram_dict:
+        gram_dict[gram] = log_probability_for_gram(gram,gram_dict, prior_gram_dict, 2)
+
+    # Recurse
+    internal_probabilitize(dict_array, current_dict_index-1)
+
+
+def log_probability_for_gram(gram, gram_dict, prior_gram_dict, log_base):
+    """
+    Use the n-1 gram dict to calculate n-gram dict probability
+    p = ngram / n-1GramDict(ngram[0:-1])
+    :param gram:
+    :param gram_dict:
+    :param prior_gram_dict:
+    :param log_base:
+    :return:
+    """
+    prior_words = gram[0:-1]
+    probability = float(gram_dict[gram]) / float(prior_gram_dict[prior_words])
+    return math.log(probability, log_base)
 
 
 def insert_start_end_tokens(tokens, start_token, end_token):
@@ -49,7 +87,7 @@ def zip_word_frequency_with_dict(tokens, n_dict, n_count):
 
     # freq count each ngram
     for gram in grammed:
-        n_dict[gram] = n_dict[gram]+1 if gram in n_dict else 0
+        n_dict[gram] = n_dict[gram]+1 if gram in n_dict else 1
 
 
 def ngram_from_word_list(word_list, n):
