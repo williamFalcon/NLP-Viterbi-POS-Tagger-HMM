@@ -1,6 +1,7 @@
 import math
 import nltk
 import time
+import wf_nlp_lib.n_gramer as ngramer
 
 # Constants to be used by you when you fill the functions
 START_SYMBOL = '*'
@@ -12,6 +13,7 @@ MINUS_INFINITY_SENTENCE_LOG_PROB = -1000
 # training_corpus: is a list of the sentences. Each sentence is a string with tokens separated by spaces, ending in a newline character.
 # This function outputs three python dictionaries, where the keys are tuples expressing the ngram and the value is the log probability of that ngram
 def calc_probabilities(training_corpus):
+    grams = ngramer.calculate_ngram_probabilities_for_corpus(training_corpus, 3)
     unigram_p = {}
     bigram_p = {}
     trigram_p = {}
@@ -68,8 +70,8 @@ def linearscore(unigrams, bigrams, trigrams, corpus):
     scores = []
     return scores
 
-DATA_PATH = 'data/small'
-OUTPUT_PATH = 'output/small'
+DATA_PATH = 'data/small/'
+OUTPUT_PATH = 'output/small/'
 
 # DO NOT MODIFY THE MAIN FUNCTION
 def main():
