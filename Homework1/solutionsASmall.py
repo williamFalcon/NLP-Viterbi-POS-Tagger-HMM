@@ -2,6 +2,7 @@ import math
 import nltk
 import time
 import wf_nlp_lib.n_gramer as ngramer
+import tests.part_a_tests as a_tests
 
 # Constants to be used by you when you fill the functions
 START_SYMBOL = '*'
@@ -15,18 +16,14 @@ MINUS_INFINITY_SENTENCE_LOG_PROB = -1000
 def calc_probabilities(training_corpus):
     # Calculate the probabilies using our external module
     grams, corpus_size = ngramer.make_ngrams_for_corpus(training_corpus, 3, START_SYMBOL, STOP_SYMBOL)
-    ngramer.probabilitize_n_grams(grams, corpus_size)
+    ngramer.calculate_ngram_probabilities(grams, corpus_size)
 
     # Transfer back to HW output needed
     unigram_p = grams[0]
-    # c = unigram_p['captain']
-    # assert (unigram_p['captain'] == -14.2809819899)
-
     bigram_p = grams[1]
-    # assert (bigram_p['religiously'] == -13.9316608989)
-
     trigram_p = grams[2]
-    # assert (trigram_p['and not by'] == -4.61470984412)
+
+    a_tests.test_grams(unigram_p, bigram_p, trigram_p)
 
     return unigram_p, bigram_p, trigram_p
 
