@@ -2,14 +2,14 @@ __author__ = 'waf04'
 import math
 
 
-def make_ngrams_for_corpus(corpus, n, start_token, end_token):
+def make_ngrams_for_corpus(corpus, n, start_token="*", end_token="STOP"):
     """
-    Returns an array of n dictionaries with the frequencies of each ngram
+    Returns grams, corpus_size, sentence_count
     :param corpus:
     :param n:
     :param start_token:
     :param end_token:
-    :return:
+    :return: Grams = array of ngram dicts
     """
     # Ensure we have necessary params
     if not corpus or n == 0 or not start_token or not end_token: return [], 0
