@@ -21,7 +21,7 @@ def score(ngram_p, n, corpus, start_token, end_token):
     return results
 
 
-def interpolate_ngram_collection(ngram_collection, corpus, start_token, end_token):
+def interpolate_ngram_collection(ngram_collection, corpus, start_token, end_token, inf_constant):
 
     # n is how big our ngram is
     n = len(ngram_collection)
@@ -43,6 +43,12 @@ def interpolate_ngram_collection(ngram_collection, corpus, start_token, end_toke
             powerset = powerset_from_collection(sentence_tuple)
 
             try:
+
+                #Account for foreign words. If unigram isn't there, then powerset is invalid
+                if is_unkown_ngram(powerset[0], ngram_collection[0]):
+                    total = float(inf_constant)
+                    break
+
                 # Get log probabilities for this tuple across all ngrams
                 log_probs = [item[powerset[i]] for i, item in enumerate(ngram_collection)]
 
@@ -59,8 +65,13 @@ def interpolate_ngram_collection(ngram_collection, corpus, start_token, end_toke
 
         results.append(total)
 
-
     return results
+
+
+def is_unkown_ngram(powerset_unigram, unigrams):
+    is_unknown = powerset_unigram not in unigrams
+    return is_unknown
+
 
 def powerset_from_collection(maxtuple):
     """

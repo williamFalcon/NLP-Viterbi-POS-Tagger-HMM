@@ -7,7 +7,7 @@ import tests.part_a_tests as a_tests
 START_SYMBOL = '*'
 STOP_SYMBOL = 'STOP'
 MINUS_INFINITY_SENTENCE_LOG_PROB = -1000
-ALLOW_TESTS = True
+ALLOW_TESTS = False
 SMALL = False
 
 # Calculates unigram, bigram, and trigram probabilities given a training corpus
@@ -79,10 +79,7 @@ def score_output(scores, filename):
 # Each ngram argument is a python dictionary where the keys are tuples that express an ngram and the value is the log probability of that ngram
 # Like score(), this function returns a python list of scores
 def linearscore(unigrams, bigrams, trigrams, corpus):
-    scores = scorer.interpolate_ngram_collection([unigrams, bigrams, trigrams], corpus, START_SYMBOL, STOP_SYMBOL)
-
-    if ALLOW_TESTS:
-        a_tests.test_interpolation_scores(scores)
+    scores = scorer.interpolate_ngram_collection([unigrams, bigrams, trigrams], corpus, START_SYMBOL, STOP_SYMBOL, MINUS_INFINITY_SENTENCE_LOG_PROB)
 
     return scores
 
@@ -127,10 +124,12 @@ def main():
     # linear interpolation (question 3)
     linearscores = linearscore(unigrams, bigrams, trigrams, corpus)
 
+    if ALLOW_TESTS:
+        a_tests.test_interpolation_scores(linearscores)
+
     # question 3 output
     score_output(linearscores, OUTPUT_PATH + 'A3.txt')
 
-    '''
     # open Sample1 and Sample2 (question 5)
     infile = open(DATA_PATH + 'Sample1.txt', 'r')
     sample1 = infile.readlines()
@@ -146,7 +145,6 @@ def main():
     # question 5 output
     score_output(sample1scores, OUTPUT_PATH + 'Sample1_scored.txt')
     score_output(sample2scores, OUTPUT_PATH + 'Sample2_scored.txt')
-    '''
 
     # print total time to run Part A
     print "Part A time: " + str(time.clock()) + ' sec'

@@ -12,3 +12,7 @@ PART A2:
 	A2.uni.txt 	perplexity: 	1052.4865859
 	A2.bi.txt 	perplexity: 	53.8984761198
 	A3.tri.txt 	perplexity: 	5.7106793082
+
+PART A3:
+	The perplexity is 12.5516094886
+
