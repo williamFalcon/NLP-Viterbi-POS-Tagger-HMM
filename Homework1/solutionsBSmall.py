@@ -4,13 +4,14 @@ import math
 import time
 import wf_nlp_lib.corpus_parser as parser
 import wf_nlp_lib.n_gramer as n_gramer
+import tests.part_b_tests as tester
 
 START_SYMBOL = '*'
 STOP_SYMBOL = 'STOP'
 RARE_SYMBOL = '_RARE_'
 RARE_WORD_MAX_FREQ = 5
 LOG_PROB_OF_ZERO = -1000
-ALLOW_TESTS = False
+ALLOW_TESTS = True
 SMALL = False
 
 # Receives a list of tagged sentences and processes each sentence to generate a list of words and a list of tags.
@@ -26,7 +27,6 @@ def split_wordtags(brown_train):
     return brown_words, brown_tags
 
 
-# TODO: IMPLEMENT THIS FUNCTION
 # This function takes tags from the training data and calculates tag trigram probabilities.
 # It returns a python dictionary where the keys are tuples that represent the tag trigram, and the values are the log probability of that trigram
 def calc_trigrams(brown_tags):
@@ -35,6 +35,9 @@ def calc_trigrams(brown_tags):
 
     # use only trigrams
     q_values = ngrams[2]
+
+    if ALLOW_TESTS:
+        tester.test_trigrams_b2(q_values)
 
     return q_values
 

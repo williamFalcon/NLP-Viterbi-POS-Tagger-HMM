@@ -30,7 +30,10 @@ def split_wordtags(corpus, delimiter='/', start_word='*', stop_word='STOP', ngra
         n_gramer.insert_start_end_tokens(words, start_word, stop_word, ngram_used)
         n_gramer.insert_start_end_tokens(tags, start_word, stop_word, ngram_used)
 
-        tag_sentences.append(words)
-        word_sentences.append(tags)
+        words_sentence = ' '.join(words)
+        tags_sentence = ' '.join(tags)
+
+        tag_sentences.append(tags_sentence)
+        word_sentences.append(words_sentence)
 
     return word_sentences, tag_sentences
