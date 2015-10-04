@@ -7,7 +7,7 @@ def score(ngram_p, n, corpus, start_token, end_token):
     for sentence in corpus:
 
         # Create ntuples from sentence
-        word_list = __build_word_list(sentence,start_token, end_token, n)
+        word_list = __build_word_list(sentence, start_token, end_token, n)
         n_tuple = gramer.ngram_from_word_list(word_list, n)
 
         total = 0
@@ -75,14 +75,6 @@ def lambdas_from_ngrams(ngrams):
 
 def __build_word_list(sentence, start_token, end_token, n):
     word_list = gramer.explode(sentence)
-    insert_start_end_tokens(word_list, start_token, end_token, n)
+    gramer.insert_start_end_tokens(word_list, start_token, end_token, n)
 
-    # Remove start token for unigrams
-    if n == 1: word_list.pop(0)
     return word_list
-
-def insert_start_end_tokens(tokens, start_token, end_token, n_gram_count):
-
-    for c in range(n_gram_count-1):
-        tokens.insert(0, start_token)
-        tokens.append(end_token)

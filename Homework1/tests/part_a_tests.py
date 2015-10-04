@@ -14,7 +14,7 @@ def test_grams(unigrams, bigrams, trigrams):
     bi_tests = [{("and", "religion"): -12.9316608989}, {("and", "religious"): -11.3466983981}, {("and", "religiously"): -13.9316608989}]
     tri_tests = [{("and", "not", "a"): -4.02974734339}, {("and", "not", "by"): -4.61470984412}, {("and", "not", "come"): -5.61470984412}]
 
-    # Assemble tests and grams tto run tests easily
+    # Assemble tests and grams to run tests easily
     all_tests = [uni_tests, bi_tests, tri_tests]
     n_grams = [unigrams, bigrams, trigrams]
 
