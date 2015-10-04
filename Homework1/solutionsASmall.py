@@ -77,6 +77,7 @@ def score_output(scores, filename):
 # Like score(), this function returns a python list of scores
 def linearscore(unigrams, bigrams, trigrams, corpus):
     scores = scorer.interpolate_ngram_collection([unigrams, bigrams, trigrams], corpus, START_SYMBOL, STOP_SYMBOL)
+    a_tests.test_interpolation_scores(scores)
     return scores
 
 

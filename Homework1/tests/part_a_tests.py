@@ -4,7 +4,13 @@ import logging
 
 
 def test_grams(unigrams, bigrams, trigrams):
-
+    """
+    Tests QA1
+    :param unigrams:
+    :param bigrams:
+    :param trigrams:
+    :return:
+    """
     print '==============================='
     print 'Part A1: Running ngram tests...'
     print '==============================='
@@ -31,7 +37,13 @@ def test_grams(unigrams, bigrams, trigrams):
 
 
 def test_score_grams(unigram_scores, bigram_scores, trigram_scores):
-
+    """
+    Tests QA2
+    :param unigram_scores:
+    :param bigram_scores:
+    :param trigram_scores:
+    :return:
+    """
     print '==============================='
     print 'Part A2: Running scoring tests...'
     print '==============================='
@@ -57,5 +69,31 @@ def test_score_grams(unigram_scores, bigram_scores, trigram_scores):
                 print '%i/%i Test passed (%s)' %(i, total_tests, answer)
             except:
                 logging.error('%i/%i Test failed DESIRED:(%s) != ACTUAL:(%s)' %(i, total_tests, real, answer))
+
+            i += 1
+
+
+def test_interpolation_scores(scores):
+    """
+    Tests QA3
+    :param scores:
+    :return:
+    """
+    print '==============================='
+    print 'Part A3: Running interpolation tests...'
+    print '==============================='
+
+    # Assemble tests and grams tto run tests easily
+    all_tests = [-46.5891638973, -85.77421559, -58.5442024163, -47.5165051948, -52.7387360815]
+
+    # Run all tests
+    i = 1
+    total_tests = len(all_tests)
+    for actual, desired in zip(all_tests, scores):
+        try:
+            numpy_tester.assert_almost_equal(actual, desired)
+            print '%i/%i Test passed (%s)' %(i, total_tests, actual)
+        except:
+            logging.error('%i/%i Test failed DESIRED:(%s) != ACTUAL:(%s)' %(i, total_tests, actual, desired))
 
             i += 1
