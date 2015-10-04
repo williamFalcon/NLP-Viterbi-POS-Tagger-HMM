@@ -17,6 +17,7 @@ def make_ngrams_for_corpus(corpus, n, start_token, end_token):
     # Init a dictionary for the ith ngram requested
     grams = [{} for i in range(n)]
     corpus_size = 0
+    sentence_count = len(corpus)
 
     # Generate ith gram for each sentence given
     for i_gram_count in range(n):
@@ -35,26 +36,25 @@ def make_ngrams_for_corpus(corpus, n, start_token, end_token):
 
     # We counted corpus_size by a factor of n. Remove the factor for true count
     # Remove the start tokens from the unigram
-    grams[0].pop(start_token, None)
     corpus_size /= n
-    return grams, corpus_size
+    return grams, corpus_size, sentence_count
 
 
 def explode(sentence):
     return sentence.strip().split(' ')
 
 
-def calculate_ngram_probabilities(n_grams_array, corpus_size):
+def calculate_ngram_probabilities(n_grams_array, corpus_size, sentence_count):
     """
     Calculates ngram propabilities of an array of dictionaries of sequential ngrams.
     :param n_grams_array:
     :param corpus_size:
     :return:
     """
-    __internal_probabilitize(n_grams_array, len(n_grams_array)-1, corpus_size)
+    __internal_probabilitize(n_grams_array, len(n_grams_array)-1, corpus_size, sentence_count)
 
 
-def __internal_probabilitize(dict_array, current_dict_index, corpus_size):
+def __internal_probabilitize(dict_array, current_dict_index, corpus_size, sentence_count):
 
     # Current ngram dict
     gram_dict = dict_array[current_dict_index]
@@ -70,13 +70,13 @@ def __internal_probabilitize(dict_array, current_dict_index, corpus_size):
 
     # Calculate probability for each gram
     for gram in gram_dict:
-        gram_dict[gram] = __log_probability_for_gram(gram, gram_dict, prior_gram_dict, 2)
+        gram_dict[gram] = __log_probability_for_gram(gram, gram_dict, prior_gram_dict, 2, sentence_count)
 
     # Recurse
-    __internal_probabilitize(dict_array, current_dict_index-1, corpus_size)
+    __internal_probabilitize(dict_array, current_dict_index-1, corpus_size, sentence_count)
 
 
-def __log_probability_for_gram(gram, gram_dict, prior_gram_dict, log_base):
+def __log_probability_for_gram(gram, gram_dict, prior_gram_dict, log_base, sentence_count):
     """
     Use the n-1 gram dict to calculate n-gram dict probability
     p = ngram / n-1GramDict(ngram[0:-1])
@@ -87,16 +87,26 @@ def __log_probability_for_gram(gram, gram_dict, prior_gram_dict, log_base):
     :return:
     """
     prior_words = gram[0:-1]
-    probability = float(gram_dict[gram]) / float(prior_gram_dict[prior_words])
+    denumerator = sentence_count if prior_words == ("*", "*") or prior_words == ("*",) else float(prior_gram_dict[prior_words])
+    probability = float(gram_dict[gram]) / denumerator
     return math.log(probability, log_base)
 
 
 def insert_start_end_tokens(tokens, start_token, end_token, n_gram_count):
-
-    for c in range(n_gram_count):
+    """
+    Inserts a set of tokens to the beginning and ending of the list (n tokens in both places).
+    :param tokens:
+    :param start_token:
+    :param end_token:
+    :param n_gram_count:
+    :return:
+    """
+    index_adjusted = n_gram_count-1
+    for c in range(index_adjusted):
         tokens.insert(0, start_token)
         tokens.append(end_token)
 
+    if n_gram_count == 1: tokens.append(end_token)
 
 def __zip_word_frequency_with_dict(tokens, n_dict, n_count):
     """

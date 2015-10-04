@@ -14,8 +14,8 @@ MINUS_INFINITY_SENTENCE_LOG_PROB = -1000
 def calc_probabilities(training_corpus):
 
     # Calculate the probabilies using our external module
-    grams, corpus_size = ngramer.make_ngrams_for_corpus(training_corpus, 3, START_SYMBOL, STOP_SYMBOL)
-    ngramer.calculate_ngram_probabilities(grams, corpus_size)
+    grams, corpus_size, sentence_count = ngramer.make_ngrams_for_corpus(training_corpus, 3, START_SYMBOL, STOP_SYMBOL)
+    ngramer.calculate_ngram_probabilities(grams, corpus_size, sentence_count)
 
     # Transfer back to HW output needed
     unigram_p = grams[0]
@@ -23,7 +23,7 @@ def calc_probabilities(training_corpus):
     trigram_p = grams[2]
 
     # TODO: Comment out when submit
-    #a_tests.test_grams(unigram_p, bigram_p, trigram_p)
+    a_tests.test_grams(unigram_p, bigram_p, trigram_p)
 
     return unigram_p, bigram_p, trigram_p
 
@@ -70,13 +70,18 @@ def score_output(scores, filename):
         outfile.write(str(score) + '\n')
     outfile.close()
 
+
 # TODO: IMPLEMENT THIS FUNCTION
 # Calculates scores (log probabilities) for every sentence with a linearly interpolated model
 # Each ngram argument is a python dictionary where the keys are tuples that express an ngram and the value is the log probability of that ngram
 # Like score(), this function returns a python list of scores
 def linearscore(unigrams, bigrams, trigrams, corpus):
-    scores = []
+    scores = scorer.interpolate_ngram_collection([unigrams, bigrams, trigrams], corpus, START_SYMBOL, STOP_SYMBOL)
     return scores
+
+
+# DATA_PATH = 'data/small/'
+# OUTPUT_PATH = 'output/small/'
 
 DATA_PATH = 'data/'
 OUTPUT_PATH = 'output/'
@@ -87,6 +92,7 @@ def main():
     time.clock()
 
     # get data
+    # infile = open(DATA_PATH + 'Small_Brown_train.txt', 'r')
     infile = open(DATA_PATH + 'Brown_train.txt', 'r')
     corpus = infile.readlines()
     infile.close()
@@ -102,18 +108,21 @@ def main():
     biscores = score(bigrams, 2, corpus)
     triscores = score(trigrams, 3, corpus)
 
+    # run tests
+    a_tests.test_score_grams(uniscores, biscores, triscores)
+
     # question 2 output
     score_output(uniscores, OUTPUT_PATH + 'A2.uni.txt')
     score_output(biscores, OUTPUT_PATH + 'A2.bi.txt')
     score_output(triscores, OUTPUT_PATH + 'A2.tri.txt')
 
-    '''
     # linear interpolation (question 3)
     linearscores = linearscore(unigrams, bigrams, trigrams, corpus)
 
     # question 3 output
     score_output(linearscores, OUTPUT_PATH + 'A3.txt')
 
+    '''
     # open Sample1 and Sample2 (question 5)
     infile = open(DATA_PATH + 'Sample1.txt', 'r')
     sample1 = infile.readlines()
