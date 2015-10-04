@@ -7,6 +7,8 @@ import tests.part_a_tests as a_tests
 START_SYMBOL = '*'
 STOP_SYMBOL = 'STOP'
 MINUS_INFINITY_SENTENCE_LOG_PROB = -1000
+ALLOW_TESTS = True
+SMALL = False
 
 # Calculates unigram, bigram, and trigram probabilities given a training corpus
 # training_corpus: is a list of the sentences. Each sentence is a string with tokens separated by spaces, ending in a newline character.
@@ -23,7 +25,8 @@ def calc_probabilities(training_corpus):
     trigram_p = grams[2]
 
     # TODO: Comment out when submit
-    a_tests.test_grams(unigram_p, bigram_p, trigram_p)
+    if ALLOW_TESTS:
+        a_tests.test_grams(unigram_p, bigram_p, trigram_p)
 
     return unigram_p, bigram_p, trigram_p
 
@@ -77,15 +80,18 @@ def score_output(scores, filename):
 # Like score(), this function returns a python list of scores
 def linearscore(unigrams, bigrams, trigrams, corpus):
     scores = scorer.interpolate_ngram_collection([unigrams, bigrams, trigrams], corpus, START_SYMBOL, STOP_SYMBOL)
-    a_tests.test_interpolation_scores(scores)
+
+    if ALLOW_TESTS:
+        a_tests.test_interpolation_scores(scores)
+
     return scores
 
 
 # DATA_PATH = 'data/small/'
 # OUTPUT_PATH = 'output/small/'
 
-DATA_PATH = 'data/'
-OUTPUT_PATH = 'output/'
+DATA_PATH = 'data/' if not SMALL else 'data/small/'
+OUTPUT_PATH = 'output/' if not SMALL else 'output/small/'
 
 # DO NOT MODIFY THE MAIN FUNCTION
 def main():
@@ -93,8 +99,8 @@ def main():
     time.clock()
 
     # get data
-    # infile = open(DATA_PATH + 'Small_Brown_train.txt', 'r')
-    infile = open(DATA_PATH + 'Brown_train.txt', 'r')
+    name = 'Small_Brown_train.txt' if SMALL else 'Brown_train.txt'
+    infile = open(DATA_PATH + name, 'r')
     corpus = infile.readlines()
     infile.close()
 
@@ -110,7 +116,8 @@ def main():
     triscores = score(trigrams, 3, corpus)
 
     # run tests
-    a_tests.test_score_grams(uniscores, biscores, triscores)
+    if ALLOW_TESTS:
+        a_tests.test_score_grams(uniscores, biscores, triscores)
 
     # question 2 output
     score_output(uniscores, OUTPUT_PATH + 'A2.uni.txt')

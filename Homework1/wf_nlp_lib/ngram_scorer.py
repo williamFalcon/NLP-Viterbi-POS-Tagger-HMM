@@ -1,6 +1,7 @@
 __author__ = 'waf04'
 import n_gramer as gramer
-
+import math
+import numpy as np
 
 def score(ngram_p, n, corpus, start_token, end_token):
     results = []
@@ -30,22 +31,34 @@ def interpolate_ngram_collection(ngram_collection, corpus, start_token, end_toke
     for sentence in corpus:
 
         # Create ntuples from sentence
-        word_list = __build_word_list(sentence, start_token, end_token, n-1)
+        word_list = __build_word_list(sentence, start_token, end_token, n)
         n_tuple = gramer.ngram_from_word_list(word_list, n)
 
         total = 0
 
+        # print sentence
         for sentence_tuple in n_tuple:
+            # print '======================='
+            # print "%s" %(sentence_tuple,)
             powerset = powerset_from_collection(sentence_tuple)
-            subtotal = 0
-            for idx, sub_tuple in enumerate(powerset):
-                lmbd = lambds[idx]
-                value = ngram_collection[idx][sub_tuple]
-                subtotal += lmbd*value
 
-            total += subtotal
+            try:
+                # Get log probabilities for this tuple across all ngrams
+                log_probs = [item[powerset[i]] for i, item in enumerate(ngram_collection)]
+
+                # Calculate log probability
+                probs_sum = [2**log_prob for log_prob in log_probs]
+                trigram_interpolated_log_prob = math.log(lambds[0], 2) + math.log(np.sum(probs_sum), 2)
+
+                # Add to overall sentence count
+                total += trigram_interpolated_log_prob
+                # print '%f TOTAL:%f' %(trigram_interpolated_log_prob, total)
+            except:
+                # print 'skipped %s' %(sentence_tuple,)
+                pass
 
         results.append(total)
+
 
     return results
 

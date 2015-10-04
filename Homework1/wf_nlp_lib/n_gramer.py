@@ -88,7 +88,7 @@ def __log_probability_for_gram(gram, gram_dict, prior_gram_dict, log_base, sente
     """
     prior_words = gram[0:-1]
     denumerator = sentence_count if prior_words == ("*", "*") or prior_words == ("*",) else float(prior_gram_dict[prior_words])
-    probability = float(gram_dict[gram]) / denumerator
+    probability = float(gram_dict[gram]) / float(denumerator)
     return math.log(probability, log_base)
 
 
