@@ -2,7 +2,6 @@ __author__ = 'waf04'
 import numpy.testing as numpy_tester
 import logging
 
-
 def test_trigrams_b2(trigrams):
     """
     Tests QB2

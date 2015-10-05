@@ -4,14 +4,16 @@ import math
 import time
 import wf_nlp_lib.corpus_parser as parser
 import wf_nlp_lib.n_gramer as n_gramer
+import wf_nlp_lib.smoother as smoother
 import tests.part_b_tests as tester
+
 
 START_SYMBOL = '*'
 STOP_SYMBOL = 'STOP'
 RARE_SYMBOL = '_RARE_'
 RARE_WORD_MAX_FREQ = 5
 LOG_PROB_OF_ZERO = -1000
-ALLOW_TESTS = True
+ALLOW_TESTS = False
 SMALL = False
 
 # Receives a list of tagged sentences and processes each sentence to generate a list of words and a list of tags.
@@ -52,19 +54,18 @@ def q2_output(q_values, filename):
     outfile.close()
 
 
-# TODO: IMPLEMENT THIS FUNCTION
 # Takes the words from the training data and returns a set of all of the words that occur more than 5 times (use RARE_WORD_MAX_FREQ)
 # brown_words is a python list where every element is a python list of the words of a particular sentence.
 # Note: words that appear exactly 5 times should be considered rare!
 def calc_known(brown_words):
-    known_words = set([])
+    known_words = smoother.words_over_n_set(RARE_WORD_MAX_FREQ, brown_words)
     return known_words
 
-# TODO: IMPLEMENT THIS FUNCTION
+
 # Takes the words from the training data and a set of words that should not be replaced for '_RARE_'
 # Returns the equivalent to brown_words but replacing the unknown words by '_RARE_' (use RARE_SYMBOL constant)
 def replace_rare(brown_words, known_words):
-    brown_words_rare = []
+    brown_words_rare = smoother.replace_rare_words(brown_words, known_words, RARE_SYMBOL)
     return brown_words_rare
 
 # This function takes the ouput from replace_rare and outputs it to a file
@@ -163,7 +164,6 @@ def main():
     # question 2 output
     q2_output(q_values, OUTPUT_PATH + 'B2.txt')
 
-    """
     # calculate list of words with count > 5 (question 3)
     known_words = calc_known(brown_words)
 
@@ -173,6 +173,7 @@ def main():
     # question 3 output
     q3_output(brown_words_rare, OUTPUT_PATH + "B3.txt")
 
+    """
     # calculate emission probabilities (question 4)
     e_values, taglist = calc_emission(brown_words_rare, brown_tags)
 
