@@ -6,15 +6,15 @@ import wf_nlp_lib.corpus_parser as parser
 import wf_nlp_lib.n_gramer as n_gramer
 import wf_nlp_lib.smoother as smoother
 import tests.part_b_tests as tester
-
+import wf_nlp_lib.pos_tagger as pos_tagger
 
 START_SYMBOL = '*'
 STOP_SYMBOL = 'STOP'
 RARE_SYMBOL = '_RARE_'
 RARE_WORD_MAX_FREQ = 5
 LOG_PROB_OF_ZERO = -1000
-ALLOW_TESTS = False
-SMALL = True
+ALLOW_TESTS = True
+SMALL = False
 
 # Receives a list of tagged sentences and processes each sentence to generate a list of words and a list of tags.
 # Each sentence is a string of space separated "WORD/TAG" tokens, with a newline character in the end.
@@ -82,7 +82,11 @@ def q3_output(rare, filename):
 # and the second is a tag, and the value is the log probability of the emission of the word given the tag
 # The second return value is a set of all possible tags for this data set
 def calc_emission(brown_words_rare, brown_tags):
-    e_values = {}
+    e_values = pos_tagger.emission_probabilities_from(brown_words_rare, brown_tags)
+
+    if ALLOW_TESTS:
+        tester.test_emissions(e_values)
+
     taglist = set([])
     return e_values, taglist
 
@@ -173,13 +177,13 @@ def main():
     # question 3 output
     q3_output(brown_words_rare, OUTPUT_PATH + "B3.txt")
 
-    """
     # calculate emission probabilities (question 4)
     e_values, taglist = calc_emission(brown_words_rare, brown_tags)
 
     # question 4 output
     q4_output(e_values, OUTPUT_PATH + "B4.txt")
 
+    """
     # delete unneceessary data
     del brown_train
     del brown_words_rare
