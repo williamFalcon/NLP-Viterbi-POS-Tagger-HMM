@@ -14,7 +14,7 @@ RARE_SYMBOL = '_RARE_'
 RARE_WORD_MAX_FREQ = 5
 LOG_PROB_OF_ZERO = -1000
 ALLOW_TESTS = False
-SMALL = False
+SMALL = True
 
 # Receives a list of tagged sentences and processes each sentence to generate a list of words and a list of tags.
 # Each sentence is a string of space separated "WORD/TAG" tokens, with a newline character in the end.
