@@ -13,7 +13,7 @@ STOP_SYMBOL = 'STOP'
 RARE_SYMBOL = '_RARE_'
 RARE_WORD_MAX_FREQ = 5
 LOG_PROB_OF_ZERO = -1000
-ALLOW_TESTS = True
+ALLOW_TESTS = False
 SMALL = False
 
 # Receives a list of tagged sentences and processes each sentence to generate a list of words and a list of tags.
@@ -82,12 +82,12 @@ def q3_output(rare, filename):
 # and the second is a tag, and the value is the log probability of the emission of the word given the tag
 # The second return value is a set of all possible tags for this data set
 def calc_emission(brown_words_rare, brown_tags):
-    e_values = pos_tagger.emission_probabilities_from(brown_words_rare, brown_tags)
+    e_values, known_tags = pos_tagger.emission_probabilities_from(brown_words_rare, brown_tags)
 
     if ALLOW_TESTS:
         tester.test_emissions(e_values)
 
-    taglist = set([])
+    taglist = known_tags
     return e_values, taglist
 
 # This function takes the output from calc_emissions() and outputs it
@@ -114,7 +114,7 @@ def q4_output(e_values, filename):
 # terminal newline, not a list of tokens. Remember also that the output should not contain the "_RARE_" symbol, but rather the
 # original words of the sentence!
 def viterbi(brown_dev_words, taglist, known_words, q_values, e_values):
-    tagged = []
+    tagged = pos_tagger.tag(brown_dev_words, taglist, known_words, q_values, e_values)
     return tagged
 
 # This function takes the output of viterbi() and outputs it to file
@@ -183,13 +183,13 @@ def main():
     # question 4 output
     q4_output(e_values, OUTPUT_PATH + "B4.txt")
 
-    """
     # delete unneceessary data
     del brown_train
     del brown_words_rare
 
     # open Brown development data (question 5)
-    infile = open(DATA_PATH + "Brown_dev.txt", "r")
+    name = 'Small_Brown_dev.txt' if SMALL else 'Brown_dev.txt'
+    infile = open(DATA_PATH + name, "r")
     brown_dev = infile.readlines()
     infile.close()
 
@@ -201,6 +201,7 @@ def main():
     # do viterbi on brown_dev_words (question 5)
     viterbi_tagged = viterbi(brown_dev_words, taglist, known_words, q_values, e_values)
 
+    """
     # question 5 output
     q5_output(viterbi_tagged, OUTPUT_PATH + 'B5.txt')
 
