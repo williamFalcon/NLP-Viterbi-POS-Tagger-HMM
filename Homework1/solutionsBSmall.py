@@ -201,13 +201,13 @@ def main():
     # do viterbi on brown_dev_words (question 5)
     viterbi_tagged = viterbi(brown_dev_words, taglist, known_words, q_values, e_values)
 
-    """
     # question 5 output
     q5_output(viterbi_tagged, OUTPUT_PATH + 'B5.txt')
 
     # do nltk tagging here
     nltk_tagged = nltk_tagger(brown_words, brown_tags, brown_dev_words)
 
+    """
     # question 6 output
     q6_output(nltk_tagged, OUTPUT_PATH + 'B6.txt')
     """
