@@ -131,11 +131,38 @@ def q5_output(tagged, filename):
 # The return value is a list of tagged sentences in the format "WORD/TAG", separated by spaces. Each sentence is a string with a 
 # terminal newline, not a list of tokens. 
 def nltk_tagger(brown_words, brown_tags, brown_dev_words):
-    # Hint: use the following line to format data to what NLTK expects for training
-    training = [ zip(brown_words[i],brown_tags[i]) for i in xrange(len(brown_words)) ]
+    training = []
+    for brown_sentence, tag_sentence in zip(brown_words, brown_tags):
+        words = brown_sentence.split(' ')
+        tags = tag_sentence.split(' ')
+        sentence_tags = []
+        for word, tag in zip(words, tags):
+            sentence_tags.append((word, tag))
+
+        sentence_tags.pop(0)
+        sentence_tags.pop(0)
+        sentence_tags.pop()
+        sentence_tags.pop()
+
+        training.append(sentence_tags)
+
+    t0 = nltk.DefaultTagger('NN')
+    t1 = nltk.UnigramTagger(training, backoff=t0)
+    t2 = nltk.BigramTagger(training, backoff=t1)
+    t3 = nltk.TrigramTagger(training, backoff=t2)
 
     # IMPLEMENT THE REST OF THE FUNCTION HERE
     tagged = []
+    for sentence in brown_dev_words:
+        tgd_stc = t3.tag(sentence)
+        pairs = []
+        for tup in tgd_stc:
+            word, tg = tup
+            joint = word + '/' + tg
+            pairs.append(joint)
+
+        joint = ' '.join(pairs)
+        tagged.append(joint + '\n')
     return tagged
 
 # This function takes the output of nltk_tagger() and outputs it to file
@@ -198,19 +225,20 @@ def main():
     for sentence in brown_dev:
         brown_dev_words.append(sentence.split(" ")[:-1])
 
+    # do nltk tagging here
+    nltk_tagged = nltk_tagger(brown_words, brown_tags, brown_dev_words)
+
+    # question 6 output
+    q6_output(nltk_tagged, OUTPUT_PATH + 'B6.txt')
+
+
     # do viterbi on brown_dev_words (question 5)
     viterbi_tagged = viterbi(brown_dev_words, taglist, known_words, q_values, e_values)
 
     # question 5 output
     q5_output(viterbi_tagged, OUTPUT_PATH + 'B5.txt')
 
-    # do nltk tagging here
-    nltk_tagged = nltk_tagger(brown_words, brown_tags, brown_dev_words)
 
-    """
-    # question 6 output
-    q6_output(nltk_tagged, OUTPUT_PATH + 'B6.txt')
-    """
 
     # print total time to run Part B
     print "Part B time: " + str(time.clock()) + ' sec'

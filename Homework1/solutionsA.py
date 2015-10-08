@@ -1,20 +1,25 @@
-import math
-import nltk
 import time
+import wf_nlp_lib.n_gramer as ngramer
+import wf_nlp_lib.ngram_scorer as scorer
 
 # Constants to be used by you when you fill the functions
 START_SYMBOL = '*'
 STOP_SYMBOL = 'STOP'
 MINUS_INFINITY_SENTENCE_LOG_PROB = -1000
 
-# TODO: IMPLEMENT THIS FUNCTION
 # Calculates unigram, bigram, and trigram probabilities given a training corpus
 # training_corpus: is a list of the sentences. Each sentence is a string with tokens separated by spaces, ending in a newline character.
 # This function outputs three python dictionaries, where the keys are tuples expressing the ngram and the value is the log probability of that ngram
 def calc_probabilities(training_corpus):
-    unigram_p = {}
-    bigram_p = {}
-    trigram_p = {}
+    # Calculate the probabilies using our external module
+    grams, corpus_size, sentence_count = ngramer.make_ngrams_for_corpus(training_corpus, 3, START_SYMBOL, STOP_SYMBOL)
+    ngramer.calculate_ngram_probabilities(grams, corpus_size, sentence_count)
+
+    # Transfer back to HW output needed
+    unigram_p = grams[0]
+    bigram_p = grams[1]
+    trigram_p = grams[2]
+
     return unigram_p, bigram_p, trigram_p
 
 # Prints the output for q1
@@ -41,14 +46,13 @@ def q1_output(unigrams, bigrams, trigrams, filename):
     outfile.close()
 
 
-# TODO: IMPLEMENT THIS FUNCTION
 # Calculates scores (log probabilities) for every sentence
 # ngram_p: python dictionary of probabilities of uni-, bi- and trigrams.
 # n: size of the ngram you want to use to compute probabilities
 # corpus: list of sentences to score. Each sentence is a string with tokens separated by spaces, ending in a newline character.
 # This function must return a python list of scores, where the first element is the score of the first sentence, etc. 
 def score(ngram_p, n, corpus):
-    scores = []
+    scores = scorer.score(ngram_p, n, corpus, START_SYMBOL, STOP_SYMBOL)
     return scores
 
 # Outputs a score to a file
@@ -60,12 +64,11 @@ def score_output(scores, filename):
         outfile.write(str(score) + '\n')
     outfile.close()
 
-# TODO: IMPLEMENT THIS FUNCTION
 # Calculates scores (log probabilities) for every sentence with a linearly interpolated model
 # Each ngram argument is a python dictionary where the keys are tuples that express an ngram and the value is the log probability of that ngram
 # Like score(), this function returns a python list of scores
 def linearscore(unigrams, bigrams, trigrams, corpus):
-    scores = []
+    scores = scorer.interpolate_ngram_collection([unigrams, bigrams, trigrams], corpus, START_SYMBOL, STOP_SYMBOL, MINUS_INFINITY_SENTENCE_LOG_PROB)
     return scores
 
 DATA_PATH = 'data/'

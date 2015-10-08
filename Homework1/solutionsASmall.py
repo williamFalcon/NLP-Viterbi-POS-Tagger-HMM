@@ -54,7 +54,6 @@ def q1_output(unigrams, bigrams, trigrams, filename):
     outfile.close()
 
 
-# TODO: IMPLEMENT THIS FUNCTION
 # Calculates scores (log probabilities) for every sentence
 # ngram_p: python dictionary of probabilities of uni-, bi- and trigrams.
 # n: size of the ngram you want to use to compute probabilities

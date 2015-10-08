@@ -30,3 +30,43 @@ PART A5:
 	I would argue the one with the lowest score means it is from the brown corpus. However, I would have expected a score much higher for Sample2 (seeing how it is from another
 	language). However, I imagine the many -1000 sentences would have this effect.
 
+
+------------------------------------------
+PART B
+------------------------------------------
+PART B2:
+	TRIGRAM CONJ ADV ADP -2.9755173148
+	TRIGRAM DET NOUN NUM -8.9700526163
+	TRIGRAM NOUN PRT PRON -11.0854724592
+
+
+PART B4:
+	Night NOUN -13.8819025994
+	Place VERB -15.4538814891
+	prime ADJ -10.6948327183
+	STOP STOP 0.0
+	_RARE_ VERB -3.17732085089
+
+PART B5:
+	own trigram accuracy = Percent correct tags: 80.9865733774
+
+PART B6:
+	nltk accuracy = Percent correct tags: 90.0811069635
+
+
+------------------------------------------
+RUNTIMES
+------------------------------------------
+Part A time: 24.853025 sec
+Part B time: 25.904883 sec
+
+
+-----------------------------------------
+OTHER NOTES
+-----------------------------------------
+This project is under git version control.
+Two other branches house different versions of the algorithm. Their accuracy was never as high as the original implementation.
+
+This project is also under a virtualenv. It houses all dependencies for the project.
+To activate, type:  source bin/activate
+(But on clic, you shouldn't need to because the machines have all these libraries installed)
